@@ -34,4 +34,6 @@ void addValue(matrix_t * matrix,
 
 unsigned int findMajorTableIndex(matrix_t * matrix, unsigned int row_number);
 
+void insertElemMajorTable(matrix_t * matrix, unsigned int row_number, unsigned int row_insert);
+
 #endif
