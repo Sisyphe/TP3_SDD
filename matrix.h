@@ -10,13 +10,13 @@ typedef struct minor_table_cell_
 {
     unsigned int column_number;
     cell_type value;
-    struct minor_table_cell * next;
+    struct minor_table_cell_ * next;
 } minor_table_cell_t;
 
 typedef struct
 {
     unsigned int row_number;
-    minor_table_cell_t * cell;
+    struct minor_table_cell_ * cell;
 } major_table_cell_t;
 
 typedef struct
@@ -35,5 +35,11 @@ void addValue(matrix_t * matrix,
 unsigned int findMajorTableIndex(matrix_t * matrix, unsigned int row_number);
 
 void insertElemMajorTable(matrix_t * matrix, unsigned int row_number, unsigned int row_insert);
+
+minor_table_cell_t ** findMinorTableIndex(major_table_cell_t * matrix_cell, unsigned int column_number);
+
+void insertElemMinorTable(minor_table_cell_t ** minor_cell, unsigned int column_insert, cell_type value);
+
+void printTable(matrix_t * matrix);
 
 #endif
