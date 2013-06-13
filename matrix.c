@@ -47,14 +47,14 @@ unsigned int findMajorTableIndex(matrix_t * matrix, unsigned int row_number)
     int mean_index = 0;
     int min_index = 0;
     int max_index = matrix->major_table_size-1;
-    int founded = 0;
+    int is_found = 0;
         
-    while((min_index <= max_index) && (founded==0))
+    while((min_index <= max_index) && !is_found)
     {
         mean_index = (min_index + max_index) / 2;
         
         if (matrix->major_table[mean_index].row_number == row_number)
-            founded=1;
+            is_found=1;
         else
         {
             if (matrix->major_table[mean_index].row_number > row_number)
@@ -64,7 +64,7 @@ unsigned int findMajorTableIndex(matrix_t * matrix, unsigned int row_number)
         }
     }
             
-    if (!founded)
+    if (!is_found)
     {
         if (mean_index != 0) mean_index++;
         insertElemMajorTable(matrix, row_number, mean_index);
@@ -127,4 +127,25 @@ void printTable(matrix_t * matrix)
         }
     }
     printf("\n*****************************\n\n");
+}
+
+void freeTable(matrix_t * matrix)
+{
+    struct minor_table_cell_ * cell = NULL;
+    struct minor_table_cell_ * cell_to_delete = NULL;
+    int i;
+
+    for (i = 0 ; i < matrix->major_table_size ; i++)
+    {
+        cell = matrix->major_table[i].cell;
+        
+        while (cell != NULL)
+        {
+            cell_to_delete = cell;
+            cell = cell->next;
+            free(cell_to_delete);
+        }
+    }
+
+    free(matrix->major_table);
 }

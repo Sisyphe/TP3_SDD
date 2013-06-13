@@ -1,0 +1,139 @@
+\documentclass[12pt]{report}
+%\documentclass[twoside, openright, 12pt]{report}
+ 
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % definition des marges
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel} 
+
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{titlepic}
+\usepackage{titlesec, blindtext, color}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{minitoc}
+\usepackage{perpage}
+\usepackage{setspace}
+\setstretch{1.5} % interligne de 1.5
+
+%paragraph options
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{6pt}
+
+% enleve la mention chapitre
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+
+% Ligne orpheline ou veuve
+\widowpenalty=10000 % empeche au maximum la coupure avant la derniere ligne 
+\clubpenalty=10000 % empeche au maximum la coupure apres la premiere ligne 
+\raggedbottom
+
+\lstset{language=C, basicstyle=\scriptsize, numbers=left, numberstyle=\scriptsize, numbersep=12pt, caption=\lstname, captionpos=b}
+
+\def\maketitle{
+\thispagestyle{empty}
+
+\noindent 
+  Gérald Lelong \\
+  Noël Martignoni \\
+  G31 \\
+ 
+  \vskip 6cm
+  
+  \begin{center}\leavevmode
+  \Large  \textbf{Structure de donnée} \\
+  \rule{9cm}{1pt} \\
+  \Huge Compte rendu TP3 \\
+  \end{center}
+      
+  \cleardoublepage
+  }  
+
+% Le document --------------------------------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Présentation du TP}
+
+\section{Description}
+
+L'objectif de ce TP est de créer une structure de donnée permettant de stocker une matrice creuse lue depuis un fichier texte dans une table.
+
+\chapter{Programme C}
+
+\section{matrix.h}
+
+\lstinputlisting[language=C]{../matrix.h}
+
+\section{matrix.c}
+
+\lstinputlisting[language=C]{../matrix.c}
+
+\chapter{Compilation et tests}
+
+\section{Makefile}
+
+\lstinputlisting[language=make]{../Makefile}
+
+\section{Jeux de test}
+
+\subsection{Ajout d'une valeur dans une matrice vide}
+
+\lstinputlisting[language=make]{../empty_matrix.dat}
+
+\lstinputlisting[language=make]{../tests/insertion_matrice_vide.c}
+
+\begin{lstlisting}[caption=Sortie]
+********** Matrix **********
+
+row : 23
+    col : 44 value : 90
+
+*****************************
+\end{lstlisting}
+
+La valeur est bien ajoutée à la matrice.
+
+\subsection{Lecture d'un fichier vide}
+
+\lstinputlisting[language=make]{../tests/lecture_fichier_vide.c}
+
+Aucune erreur de segmentation lors de l'exécution.
+
+\subsection{Lecture d'un fichier dans le désordre}
+
+\lstinputlisting[language=make]{../matrix.dat}
+
+\lstinputlisting[language=make]{../tests/lecture_desordre.c}
+
+\begin{lstlisting}[caption=Sortie]
+    ********** Matrix **********
+
+row : 5
+    col : 8 value : -4
+row : 12
+    col : 2 value : 256
+    col : 14 value : -51
+    col : 23 value : 111
+row : 25
+    col : 5 value : 311
+    col : 18 value : 79
+row : 55
+    col : 21 value : -123
+    col : 31 value : -45
+
+*****************************
+\end{lstlisting}
+
+La matrice est conforme au fichier d'entrée.
+
+\end{document}

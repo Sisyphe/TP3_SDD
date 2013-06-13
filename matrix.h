@@ -42,4 +42,6 @@ void insertElemMinorTable(minor_table_cell_t ** minor_cell, unsigned int column_
 
 void printTable(matrix_t * matrix);
 
+void freeTable(matrix_t * matrix);
+
 #endif
